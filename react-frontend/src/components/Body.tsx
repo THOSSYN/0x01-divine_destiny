@@ -8,6 +8,7 @@ import {
   faCalendarAlt,
   faCross,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 function Body() {
   return (
@@ -429,9 +430,9 @@ function Body() {
         </div>
       </div>
       <div className="d-grid gap-2 col-6 mx-auto">
-        <button className="btn btn-primary" type="button">
+        <Link to="ViewAll" className="btn btn-primary">
           View All
-        </button>
+        </Link>
       </div>
     </div>
   );
