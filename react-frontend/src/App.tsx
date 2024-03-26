@@ -12,6 +12,8 @@ import HomePage from "./pages/HomePage";
 import NoPage from "./pages/NoPage";
 import "./styles/Search.css";
 import "./App.css";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 
 function App() {
   return(
@@ -25,6 +27,8 @@ function App() {
         <Route path="/Prayer" element={<Prayer />} />
         <Route path="ViewAll" element={<ViewAll />} />
         <Route path="*" element={<NoPage />} />
+        <Route path="/Signup" element={<Signup />} />
+        <Route path="/Login" element={<Login />} />
       </Routes>
     </BrowserRouter>
     </>

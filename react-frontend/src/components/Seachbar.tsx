@@ -7,12 +7,19 @@ import {
   faPrayingHands,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
+import DivineDest from "../assets/DivineDest.png"
 
 function Views() {
   return (
     <div style={{ width: "100px" }}>
+      {/* <div className="d-flex justify-content-center align-items-center mb-4">
+        <img src={DivineDest} alt="Logo" style={{ width: "50px" }} />
+      </div> */}
       <div className="row-cols-md-4 justify-content-between align-items-start g-4 bg-light">
         <div className="col" style={{ margin: "20px" }}>
+          <div className="d-flex justify-content-center align-items-center my-4">
+            <img src={DivineDest} alt="Logo" style={{ width: "50px" }} />
+          </div>
           <div
             className="row justify-content-center align-items-center g-2 d-grid"
             style={{ alignItems: "center" }}

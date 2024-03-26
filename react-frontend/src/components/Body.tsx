@@ -13,6 +13,18 @@ import { Link } from "react-router-dom";
 function Body() {
   return (
     <div className="container">
+      {/* Login and Signup Component */}
+      <div className="d-flex justify-content-end align-items-center mb-3">
+        {/* Login Button */}
+        <Link to="/login" className="btn btn-primary me-3">
+          Login
+        </Link>
+        {/* Signup Button */}
+        <Link to="/signup" className="btn btn-outline-primary">
+          Sign Up
+        </Link>
+      </div>
+
       <h2 className="text-start">Featured Devotionals</h2>
       <div className="row row-cols-1 row-cols-md-4 g-4">
         {/* Card 1 */}
@@ -370,7 +382,8 @@ function Body() {
                   alt="icon3"
                 />
               </div>
-              <div className="col-md-8">
+              
+              <div className="col-md-8 g-4">
                 <div className="card-body position-relative">
                   {/* Position the image in the top-right corner */}
                   <div
