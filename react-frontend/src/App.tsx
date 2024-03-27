@@ -14,23 +14,27 @@ import "./styles/Search.css";
 import "./App.css";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import LandingPage from "./pages/LandingPage";
+import WelcomePage from "./pages/WelcomePage";
 
 function App() {
-  return(
+  return (
     <>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />}/>
-        <Route path="Search" element={<Search />} />
-        <Route path="/Devotional" element={<Devotional />} />
-        <Route path="/Event" element={<Event />} />
-        <Route path="/Prayer" element={<Prayer />} />
-        <Route path="ViewAll" element={<ViewAll />} />
-        <Route path="*" element={<NoPage />} />
-        <Route path="/Signup" element={<Signup />} />
-        <Route path="/Login" element={<Login />} />
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/HomePage" element={<HomePage />} />
+          <Route path="Search" element={<Search />} />
+          <Route path="/Devotional" element={<Devotional />} />
+          <Route path="/Event" element={<Event />} />
+          <Route path="/Prayer" element={<Prayer />} />
+          <Route path="ViewAll" element={<ViewAll />} />
+          <Route path="*" element={<NoPage />} />
+          <Route path="/Signup" element={<Signup />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/WelcomePage" element={<WelcomePage />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

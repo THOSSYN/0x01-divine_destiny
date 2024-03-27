@@ -10,7 +10,11 @@ const timeOut = parseInt(process.env.TIMEOUT_24_HOURS);
 
 class UsersController {
     static async newUser(req, res) {
-        const { name, email, password } = req.body;
+        const { name, username, email, password } = req.body;
+
+        if (!name || !username || !email || !password) {
+            return res.status(400).json({ error: "One credential is missing" });
+        }
 
         try {
             const db = dbClient.db();
