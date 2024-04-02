@@ -12,7 +12,7 @@ const LandingPage = () => {
       </header>
       <div className="content">
         <img
-          src="https://via.placeholder.com/800x400"
+          src="https://via.placeholder.com/1600x400"
           alt="DivineDestinyConnect"
           className="img-fluid"
         />
@@ -36,10 +36,15 @@ const LandingPage = () => {
         </div>
         <figure className="text-center mt-5">
           <blockquote className="blockquote">
-            <p>A well-known quote, contained in a blockquote element.</p>
+            <p>
+              {" "}
+              Who gave himself for us, that he might redeem us from all <br />
+              iniquity, and purify unto himself a peculiar people, <br />
+              zealous of good works.
+            </p>
           </blockquote>
           <figcaption className="blockquote-footer">
-            Someone famous in <cite title="Source Title">Source Title</cite>
+            Titus<cite title="Source Title">2 verse 14</cite>
           </figcaption>
         </figure>
       </footer>

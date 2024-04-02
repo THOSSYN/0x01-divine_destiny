@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBible,
@@ -7,7 +7,7 @@ import {
   faPrayingHands,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
-import DivineDest from "../assets/DivineDest.png"
+import DivineDest from "../assets/DivineDest.png";
 
 function Views() {
   return (
@@ -27,7 +27,7 @@ function Views() {
             <FontAwesomeIcon icon={faHouse} />
           </div>
           <div>
-            <Link to="/" className="text-decoration-none text-dark">
+            <Link to="/HomePage" className="text-decoration-none text-dark">
               <span>Home</span>
             </Link>
           </div>
@@ -81,7 +81,6 @@ function Views() {
 }
 
 export default Views;
-
 
 // import "@fortawesome/free-solid-svg-icons";
 // import "@fortawesome/react-fontawesome";

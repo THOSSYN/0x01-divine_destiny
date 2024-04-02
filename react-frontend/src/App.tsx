@@ -28,7 +28,7 @@ function App() {
           <Route path="/Devotional" element={<Devotional />} />
           <Route path="/Event" element={<Event />} />
           <Route path="/Prayer" element={<Prayer />} />
-          <Route path="ViewAll" element={<ViewAll />} />
+          <Route path="/ViewAll" element={<ViewAll />} />
           <Route path="*" element={<NoPage />} />
           <Route path="/Signup" element={<Signup />} />
           <Route path="/Login" element={<Login />} />
