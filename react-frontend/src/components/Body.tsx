@@ -382,7 +382,7 @@ function Body() {
                   alt="icon3"
                 />
               </div>
-              
+
               <div className="col-md-8 g-4">
                 <div className="card-body position-relative">
                   {/* Position the image in the top-right corner */}
@@ -443,7 +443,7 @@ function Body() {
         </div>
       </div>
       <div className="d-grid gap-2 col-6 mx-auto">
-        <Link to="ViewAll" className="btn btn-primary">
+        <Link to="/ViewAll" className="btn btn-primary">
           View All
         </Link>
       </div>

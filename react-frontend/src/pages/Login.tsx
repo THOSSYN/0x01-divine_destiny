@@ -1,32 +1,37 @@
+import axios from "axios";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
-import { useState } from "react";
-
 
 export default function Login() {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async(e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const promise = await axios.post('http://localhost:3000/getUsers' {
-        name,
-        password
+      // Encode credentials in base64
+      const token = btoa(`${name}:${password}`);
+      // Set up axios request headers with basic authentication
+      const headers = {
+        Authorization: `Basic ${token}`,
+      };
+
+      // Make the login request
+      const response = await axios.get("http://localhost:3000/login", {
+        headers,
       });
-      const response = promise.data();
-      console.log(`Response: ${response}`);
 
-      navigate('/HomePage');
+      console.log("Login successful:", response.data);
+
+      // Redirect to homepage on successful login
+      navigate("/HomePage");
     } catch (error) {
-      console.error("Error occured");
+      console.error("Error occurred during login:", error.message);
     }
-  }
-
+  };
 
   return (
     <div className="container bg-light">
@@ -50,38 +55,42 @@ export default function Login() {
           style={{ backgroundColor: "", marginLeft: "40px", padding: "20px" }}
         >
           <h4>Welcome to DivineDestinyConnect</h4>
-          <h5>Please enter you login details</h5>
+          <h5>Please enter your login details</h5>
 
-          <form onSubmit={() => handleLogin}>
-          <div className="mb-3">
-            <label htmlFor="" className="form-label">
-              Username or Email
-            </label>
-            <input
-              className="form-control form-control-sm"
-              type="text"
-              placeholder="Username or Email"
-              aria-label=".form-control-sm example"
-            />
-          </div>
+          <form onSubmit={handleLogin}>
+            <div className="mb-3">
+              <label htmlFor="" className="form-label">
+                Username or Email
+              </label>
+              <input
+                className="form-control form-control-sm"
+                type="text"
+                placeholder="Username or Email"
+                aria-label=".form-control-sm example"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
 
-          <div className="mb-3">
-            <label htmlFor="" className="form-label">
-              Password
-            </label>
-            <input
-              className="form-control form-control-sm"
-              type="password"
-              placeholder="Password"
-              aria-label=".form-control-sm example"
-            />
-          </div>
+            <div className="mb-3">
+              <label htmlFor="" className="form-label">
+                Password
+              </label>
+              <input
+                className="form-control form-control-sm"
+                type="password"
+                placeholder="Password"
+                aria-label=".form-control-sm example"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
 
-          <div className="d-flex justify-content-center">
-            <Link type="button" className="btn btn-primary" to="/">
-              Sign In
-            </Link>
-          </div>
+            <div className="d-flex justify-content-center">
+              <button type="submit" className="btn btn-primary">
+                Sign In
+              </button>
+            </div>
           </form>
           <p className="text-center">
             Not already a user?<Link to="/Signup">sign Up</Link>

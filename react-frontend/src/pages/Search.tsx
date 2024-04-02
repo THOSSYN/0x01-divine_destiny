@@ -9,8 +9,29 @@ import {
   faPrayingHands,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
+import Devotional from "./Devotional";
+import { useState } from "react";
+import axios from "axios";
 
 function Search() {
+  const [searchString, setSearchString] = useState("");
+  const [selectedFilters, setSelectedFilters] = useState("");
+
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/search_events', {
+        params: {
+          search: searchString,
+          filter: selectedFilters,
+        },
+      });
+      console.log("Search Result:", response.data);
+    } catch (error) {
+      console.error("Error fetching search result:", error);
+    }
+  };
+
   return (
     <div className="search-container">
       <Views />
@@ -28,11 +49,14 @@ function Search() {
                 placeholder="Search devotionals, Bible study, events"
                 aria-label="Search"
                 aria-describedby="search-button"
+                value={searchString}
+                onChange={(e) => setSearchString(e.target.value)}
               />
               <button
                 className="btn btn-secondary ms-2"
                 type="button"
                 id="search-button"
+                onClick={handleSearch}
               >
                 Explore
               </button>
@@ -86,8 +110,8 @@ function Search() {
               <div className="col">
                 <div className="mb-3">
                   <div className="form-check">
-                    <input type="checkbox" className="form-check-input" />
-                    <label className="form-check-label">Pray</label>
+                    <input type="checkbox" className="form-check-input" checked={selectedFilters.includes("Prayer")} onChange={(e) => handleCheckBoxChange(e.target.checked, "Prayer")}/>
+                    <label className="form-check-label">Prayer</label>
                   </div>
                 </div>
               </div>
@@ -95,7 +119,7 @@ function Search() {
               <div className="col">
                 <div className="mb-3">
                   <div className="form-check">
-                    <input type="checkbox" className="form-check-input" />
+                    <input type="checkbox" className="form-check-input" onChange={(e) => e.target.value}/>
                     <label className="form-check-label">Devotional</label>
                   </div>
                 </div>
