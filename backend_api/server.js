@@ -13,10 +13,10 @@ app.use(express.json());
 app.use(cors());
 
 // Define the path to the directory containing your poster images
-const posterDirectory = path.join(__dirname, 'poster');
+const posterDirectory = path.join(__dirname, 'posters');
 
 // Serve the poster images using express.static middleware
-app.use('/poster', express.static(posterDirectory));
+app.use('/posters', express.static(posterDirectory));
 
 app.use('/', routes); // Use correct path for the imported routes
 
