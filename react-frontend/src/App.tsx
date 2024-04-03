@@ -16,6 +16,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import LandingPage from "./pages/LandingPage";
 import WelcomePage from "./pages/WelcomePage";
+import Dev from "./components/Dev";
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/HomePage" element={<HomePage />} />
           <Route path="Search" element={<Search />} />
-          <Route path="/Devotional" element={<Devotional />} />
+          <Route path="/Devotional" Component={Dev} />
           <Route path="/Event" element={<Event />} />
           <Route path="/Prayer" element={<Prayer />} />
           <Route path="/ViewAll" element={<ViewAll />} />

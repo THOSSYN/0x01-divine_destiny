@@ -14,12 +14,12 @@ class EventsController {
         const { name, type, description } = req.body;
 
         // Validate event data against schema properties
-        if (!name || !type || !description) {
-            return res.status(400).json({ error: "name, type, and description are required for an event" });
+        if (!name || !type || !description || theme || imageUrl) {
+            return res.status(400).json({ error: "name, type,  description, theme, imageUrl are required for an event" });
         }
 
         try {
-            const eventData = { name, type, description };
+            const eventData = { name, type, description, theme, imageUrl };
             
             // Connect to the database
             const db = await dbClient.db();
@@ -28,7 +28,7 @@ class EventsController {
             addTimestamps(eventData);
 
             // Insert the event into the collection
-            const event = await db.collection("events").insertOne(eventData);
+            const event = await db.collection("occasions").insertOne(eventData);
 
             return res.status(201).json({ eventId: event.insertedId, name });
         } catch (error) {
@@ -39,15 +39,15 @@ class EventsController {
 
     static async getEvents(req, res) {
         const { search, filters } = req.query;
-        const eventsArray = ["Devotional", "Prayer", "Bible Study", "Community, Worship"];
+        const eventsArray = ["Devotional", "Prayer", "Bible Study", "Community", "Worship"];
         let searchFilter = {};
-    
+
         // Check if search string is provided
         if (search) {
             // Add regex pattern to perform case-insensitive search
             searchFilter.name = { $regex: new RegExp(search, 'i') };
         }
-    
+
         // Check if filters are provided
         if (filters && Array.isArray(filters)) {
             // Filter out invalid event types
@@ -57,13 +57,27 @@ class EventsController {
                 searchFilter.type = { $in: validFilters };
             }
         }
-    
+
         try {
             // Connect to the database
             const db = await dbClient.db();
             // Find events based on search filter
-            const searchResult = await db.collection('events').find(searchFilter).toArray();
-            return res.status(200).json(searchResult);
+            const searchResult = await db.collection('occasions').find(searchFilter).toArray();
+
+            // Accumulate response objects into an array
+            const responseArray = searchResult.map(result => {
+                const posterImage = `/posters/${result.imageUrl}`;
+                return {
+                    name: result.name,
+                    type: result.type,
+                    description: result.description,
+                    theme: result.theme,
+                    poster: posterImage,
+                };
+            });
+
+            // Send the response array to the client
+            return res.status(200).json(responseArray);
         } catch (error) {
             console.log("Error fetching search result:", error);
             return res.status(500).json({ error: "Internal server error; can't fetch search result" });
