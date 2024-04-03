@@ -15,12 +15,13 @@ import axios from "axios";
 
 function Search() {
   const [searchString, setSearchString] = useState("");
-  const [selectedFilters, setSelectedFilters] = useState("");
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
+  // const [selectedFilters, setSelectedFilters] = useState([]);
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/search_events', {
+      const response = await axios.get("http://localhost:3000/search_events", {
         params: {
           search: searchString,
           filter: selectedFilters,
@@ -29,6 +30,14 @@ function Search() {
       console.log("Search Result:", response.data);
     } catch (error) {
       console.error("Error fetching search result:", error);
+    }
+  };
+
+  const handleCheckboxChange = (checked: boolean, filter: string) => {
+    if (checked) {
+      setSelectedFilters([...selectedFilters, filter]);
+    } else {
+      setSelectedFilters(selectedFilters.filter((f) => f !== filter));
     }
   };
 
@@ -110,7 +119,14 @@ function Search() {
               <div className="col">
                 <div className="mb-3">
                   <div className="form-check">
-                    <input type="checkbox" className="form-check-input" checked={selectedFilters.includes("Prayer")} onChange={(e) => handleCheckBoxChange(e.target.checked, "Prayer")}/>
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      checked={selectedFilters.includes("Prayer")}
+                      onChange={(e) =>
+                        handleCheckboxChange(e.target.checked, "Prayer")
+                      }
+                    />
                     <label className="form-check-label">Prayer</label>
                   </div>
                 </div>
@@ -119,7 +135,14 @@ function Search() {
               <div className="col">
                 <div className="mb-3">
                   <div className="form-check">
-                    <input type="checkbox" className="form-check-input" onChange={(e) => e.target.value}/>
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      checked={selectedFilters.includes("Devotional")}
+                      onChange={(e) =>
+                        handleCheckboxChange(e.target.checked, "Devotional")
+                      }
+                    />
                     <label className="form-check-label">Devotional</label>
                   </div>
                 </div>
@@ -128,7 +151,14 @@ function Search() {
               <div className="col">
                 <div className="mb-3">
                   <div className="form-check">
-                    <input type="checkbox" className="form-check-input" />
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      checked={selectedFilters.includes("Bible Study")}
+                      onChange={(e) =>
+                        handleCheckboxChange(e.target.checked, "Bible Study")
+                      }
+                    />
                     <label className="form-check-label">Bible Study</label>
                   </div>
                 </div>
@@ -136,7 +166,14 @@ function Search() {
               <div className="col">
                 <div className="mb-3">
                   <div className="form-check">
-                    <input type="checkbox" className="form-check-input" />
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      checked={selectedFilters.includes("Worship")}
+                      onChange={(e) =>
+                        handleCheckboxChange(e.target.checked, "Worship")
+                      }
+                    />
                     <label className="form-check-label">Worship</label>
                   </div>
                 </div>
@@ -144,7 +181,14 @@ function Search() {
               <div className="col">
                 <div className="mb-3">
                   <div className="form-check">
-                    <input type="checkbox" className="form-check-input" />
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      checked={selectedFilters.includes("Community")}
+                      onChange={(e) =>
+                        handleCheckboxChange(e.target.checked, "Community")
+                      }
+                    />
                     <label className="form-check-label">Community</label>
                   </div>
                 </div>
@@ -217,7 +261,11 @@ function Search() {
         {/*Inspration for you*/}
         <div
           className="d-flex"
-          style={{ marginLeft: "20px", marginTop: "40px", marginBottom: "10px" }}
+          style={{
+            marginLeft: "20px",
+            marginTop: "40px",
+            marginBottom: "10px",
+          }}
         >
           <h5>Inspiration for you</h5>
         </div>
