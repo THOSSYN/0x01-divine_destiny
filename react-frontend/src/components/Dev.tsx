@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Views from "./Seachbar";
 
 export default function Dev() {
   interface Event {
@@ -43,17 +44,30 @@ export default function Dev() {
   }
 
   return (
-    <div>
-      {searchDevotional.map((item, index) => (
-        <div key={index}>
-          <img
-            src={item.poster}
-            className="img-fluid rounded-top"
-            alt="devotionals"
-          />
-          <h6>{item.theme}</h6>
-        </div>
-      ))}
-    </div>
+    <>
+      <div className="container-fluid d-flex">
+        <Views />
+        {searchDevotional.map((item, index) => (
+          <div style={{ marginLeft: "20px", marginTop: "10px" }} key={index}>
+            <img
+              src={`http://localhost:3000${item.poster}`}
+              className="img-fluid rounded-top"
+              alt="devotionals"
+              style={{ width: "200px", height: "200px" }}
+            />
+            <div style={{ width: "200px" }}>
+              <h6>
+                <strong>Title:</strong> {item.theme}
+              </h6>
+              <small>
+                <p>
+                  <strong>Description:</strong> {item.description}
+                </p>
+              </small>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }

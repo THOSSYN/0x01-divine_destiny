@@ -8,6 +8,14 @@ dotenv.config();
 
 const timeOut = parseInt(process.env.TIMEOUT_24_HOURS);
 
+function addTimestamps(event) {
+    const currentDate = new Date();
+    event.updated_at = currentDate;
+    if (!event.created_at) {
+        event.created_at = currentDate;
+    }
+}
+
 class UsersController {
     static async newUser(req, res) {
         const { name, username, email, password } = req.body;
@@ -18,19 +26,27 @@ class UsersController {
 
         try {
             const db = dbClient.db();
+
             
             // Check if user with email already exists
             const foundUser = await db.collection('users').findOne({ email });
-
+            
             if (foundUser) {
                 return res.status(400).json({ error: "Email already exists" });
             }
-
+            
             // Hash the password
             const hashPwd = sha1(password);
+            
+            const userData = {
+                name, username, email, password: hashPwd
+            };
+
+            // Add timestamp
+            addTimestamps(userData);
 
             // Insert new user into the database
-            const newUser = await db.collection('users').insertOne({ name, email, hashPwd });
+            const newUser = await db.collection('users').insertOne(userData);
 
             return res.status(201).json({ id: newUser.insertedId, email });
         } catch (error) {
@@ -53,12 +69,12 @@ class UsersController {
             // Decode base64 string and split into username and password
             const decodedAuth = Buffer.from(basicAuth, 'base64').toString('utf-8');
 
-            const [username, password] = decodedAuth.split(':');
+            const [name, password] = decodedAuth.split(':');
     
             const db = dbClient.db();
             
             // Find user by email (assuming username is actually email)
-            const foundUser = await db.collection('users').findOne({ name: username });
+            const foundUser = await db.collection('users').findOne({ name: name });
     
             if (!foundUser) {
                 return res.status(400).json({ error: "Invalid username and password" });
@@ -66,8 +82,8 @@ class UsersController {
     
             // Compare hashed passwords
             const hashedPassword = sha1(password);
-            
-            if (hashedPassword !== foundUser.hashPwd) {
+            console.log(`${hashedPassword} and ${foundUser.password}`);
+            if (hashedPassword !== foundUser.password) {
                 return res.status(400).json({ error: "Invalid usernames or passwords" });
             }
     

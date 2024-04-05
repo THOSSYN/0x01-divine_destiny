@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import Views from "./components/Seachbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Devotional from "./pages/Devotional";
-import Prayer from "./pages/Prayer";
+// import Prayer from "./pages/Prayer";
 import Search from "./pages/Search";
 import Event from "./pages/Event";
 import ViewAll from "./pages/ViewAll";
@@ -17,6 +17,7 @@ import Login from "./pages/Login";
 import LandingPage from "./pages/LandingPage";
 import WelcomePage from "./pages/WelcomePage";
 import Dev from "./components/Dev";
+import Prayer from "./components/Prayer";
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
           <Route path="Search" element={<Search />} />
           <Route path="/Devotional" Component={Dev} />
           <Route path="/Event" element={<Event />} />
-          <Route path="/Prayer" element={<Prayer />} />
+          <Route path="/Prayer" Component={Prayer} />
           <Route path="/ViewAll" element={<ViewAll />} />
           <Route path="*" element={<NoPage />} />
           <Route path="/Signup" element={<Signup />} />

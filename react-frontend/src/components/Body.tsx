@@ -9,8 +9,37 @@ import {
   faCross,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { destroyToken } from '../reduxState/action';
+import axios from "axios";
+import { AuthState } from "../reduxState/reducer";
 
 function Body() {
+  const dispatch = useDispatch(); // Initialize dispatch from react-redux
+  const token = useSelector((state: AuthState) => state.token); // Get token from Redux store
+
+  const handleLogout = async () => {
+    try {
+      console.log(token);
+      // Perform logout actions here
+      const response = await axios.get('http://localhost:3000/logout', {
+        headers: {
+          'x-token': token // Pass token in request header
+        }
+      });
+
+      console.log(response.data);
+
+      // Dispatch action to destroy the token
+      dispatch(destroyToken());
+      // console.log(token);
+
+      // Perform any additional logout actions (e.g., redirect to login page)
+    } catch (error) {
+      console.error("Error occurred during logout:", error.message);
+    }
+  };
+
   return (
     <div className="container">
       {/* Login and Signup Component */}
@@ -20,9 +49,13 @@ function Body() {
           Login
         </Link>
         {/* Signup Button */}
-        <Link to="/signup" className="btn btn-outline-primary">
-          Sign Up
-        </Link>
+        <Link
+        to="/"
+        className="btn btn-outline-primary"
+        onClick={handleLogout}
+      >
+        Logout
+      </Link>
       </div>
 
       <h2 className="text-start">Featured Devotionals</h2>

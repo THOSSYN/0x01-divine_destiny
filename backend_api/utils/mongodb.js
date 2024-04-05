@@ -1,5 +1,7 @@
-import { MongoClient } from "mongodb";
-import dotenv from 'dotenv';
+// import { MongoClient } from "mongodb";
+// import dotenv from 'dotenv';
+const { MongoClient } = require("mongodb");
+const dotenv = require("dotenv");
 
 dotenv.config();
 
@@ -33,4 +35,5 @@ class DBClient {
 }
 
 const dbClient = new DBClient();
-export default dbClient;
+// export default dbClient;
+module.exports = dbClient;
