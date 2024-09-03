@@ -3,8 +3,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from 'react-redux';
-import { getToken } from '../reduxState/action';
+import { useDispatch } from "react-redux";
+import { getToken } from "../reduxState/action";
 
 export default function Login() {
   const [name, setName] = useState("");
@@ -12,7 +12,9 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
     try {
       // Encode credentials in base64
@@ -34,7 +36,7 @@ export default function Login() {
       // Redirect to homepage on successful login
       navigate("/HomePage");
     } catch (error) {
-      console.error("Error occurred during login:", error.message);
+      console.error("Error occurred during login:", (error as Error).message);
     }
   };
 
@@ -62,7 +64,7 @@ export default function Login() {
           <h4>Welcome to DivineDestinyConnect</h4>
           <h5>Please enter your login details</h5>
 
-          <form onSubmit={handleLogin}>
+          <form onSubmit={(e) => handleLogin}>
             <div className="mb-3">
               <label htmlFor="" className="form-label">
                 Username or Email
@@ -111,14 +113,13 @@ export default function Login() {
 // import { Link, useNavigate } from "react-router-dom";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faHome } from "@fortawesome/free-solid-svg-icons";
-// import { useDispatch } from 'react-redux'; 
+// import { useDispatch } from 'react-redux';
 
 // export default function Login() {
 //   const [name, setName] = useState("");
 //   const [password, setPassword] = useState("");
 //   const navigate = useNavigate();
 //   const dispatch = useDispatch(); // Initialize dispatch
-  
 
 //   const handleLogin = async (e) => {
 //     e.preventDefault();

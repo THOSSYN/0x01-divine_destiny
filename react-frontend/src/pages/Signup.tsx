@@ -13,7 +13,7 @@ export default function SignUp() {
   };
 
   // Function to handle click on the terms link
-  const handleTermsClick = (event) => {
+  const handleTermsClick = (event: React.MouseEvent<HTMLInputElement>) => {
     event.preventDefault(); // Prevent default link behavior
     toggleModal(); // Toggle modal visibility
   };
@@ -33,7 +33,7 @@ export default function SignUp() {
   }, [agree]);
 
   // Event handler for checkbox change
-  const handleAgreeChange = (event) => {
+  const handleAgreeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAgree(event.target.checked); // Update the agree state
   };
 
@@ -44,7 +44,7 @@ export default function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleFormSubmission = async (e) => {
+  const handleFormSubmission = async (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     try {
       // Check if any form field is empty
@@ -74,7 +74,7 @@ export default function SignUp() {
       navigate("/WelcomePage");
     } catch (error) {
       // Handle errors
-      console.error("Error:", error.message);
+      console.error("Error:", (error as Error).message);
     }
   };
 
@@ -87,7 +87,7 @@ export default function SignUp() {
         <p>Begin your spiritual journey here</p>
       </div>
       <div style={{ paddingTop: "20px" }}>
-        <form onSubmit={handleFormSubmission}>
+        <form onSubmit={(e) => handleFormSubmission}>
           <div className="mb-3">
             {" "}
             {/* Added margin bottom class */}
@@ -160,7 +160,11 @@ export default function SignUp() {
               />
               <label className="form-check-label">
                 I agree to the{" "}
-                <a href="/" className="text-primary" onClick={handleTermsClick}>
+                <a
+                  href="/"
+                  className="text-primary"
+                  onClick={(e) => handleTermsClick}
+                >
                   <span>DivineDestinyConnect</span>
                 </a>{" "}
                 Terms and Privacy
