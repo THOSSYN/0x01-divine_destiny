@@ -9,7 +9,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     try {
       // Encode credentials in base64
@@ -29,7 +29,7 @@ export default function Login() {
       // Redirect to homepage on successful login
       navigate("/HomePage");
     } catch (error) {
-      console.error("Error occurred during login:", error.message);
+      console.error("Error occurred during login:", (error as Error).message);
     }
   };
 
@@ -57,7 +57,7 @@ export default function Login() {
           <h4>Welcome to DivineDestinyConnect</h4>
           <h5>Please enter your login details</h5>
 
-          <form onSubmit={handleLogin}>
+          <form onSubmit={(e) => handleLogin}>
             <div className="mb-3">
               <label htmlFor="" className="form-label">
                 Username or Email
