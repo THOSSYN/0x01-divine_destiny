@@ -9,8 +9,8 @@ import {
   faCross,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { destroyToken } from '../reduxState/action';
+import { useDispatch, useSelector } from "react-redux";
+import { destroyToken } from "../reduxState/action";
 import axios from "axios";
 import { AuthState } from "../reduxState/reducer";
 
@@ -18,14 +18,16 @@ function Body() {
   const dispatch = useDispatch(); // Initialize dispatch from react-redux
   const token = useSelector((state: AuthState) => state.token); // Get token from Redux store
 
-  const handleLogout = async () => {
+  const handleLogout = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     try {
       console.log(token);
       // Perform logout actions here
-      const response = await axios.get('http://localhost:3000/logout', {
+      const response = await axios.get("http://localhost:3000/logout", {
         headers: {
-          'x-token': token // Pass token in request header
-        }
+          "x-token": token, // Pass token in request header
+        },
       });
 
       console.log(response.data);
@@ -36,7 +38,7 @@ function Body() {
 
       // Perform any additional logout actions (e.g., redirect to login page)
     } catch (error) {
-      console.error("Error occurred during logout:", error.message);
+      console.error("Error occurred during logout:", (error as Error).message);
     }
   };
 
@@ -50,12 +52,12 @@ function Body() {
         </Link>
         {/* Signup Button */}
         <Link
-        to="/"
-        className="btn btn-outline-primary"
-        onClick={handleLogout}
-      >
-        Logout
-      </Link>
+          to="/"
+          className="btn btn-outline-primary"
+          onClick={(e) => handleLogout}
+        >
+          Logout
+        </Link>
       </div>
 
       <h2 className="text-start">Featured Devotionals</h2>
