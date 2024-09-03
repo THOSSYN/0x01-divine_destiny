@@ -33,8 +33,8 @@ export default function SignUp() {
   }, [agree]);
 
   // Event handler for checkbox change
-  const handleAgreeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAgree(e.target.checked); // Update the agree state
+  const handleAgreeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAgree(event.target.checked); // Update the agree state
   };
 
   const [name, setName] = useState("");
